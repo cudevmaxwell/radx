@@ -1,0 +1,92 @@
+<html>
+<head>
+</head>
+<body>
+<h1>Rad-X!</h1>
+<h2>"Encrypt"</h2>
+<label for="plaintextinput" style="display: inline-block; width:200px;">Input </label>
+<input id="plaintextinput" type="text" style="text-transform: uppercase;">
+<div>
+	<div style="float:left; width:200px;">Encrypted Output </div> 
+	<div style="float:left;" id="encryptedoutput"></div>
+</div>
+<div style="clear: both; margin-bottom: 60px;">
+	<div style="float:left; width:200px;">Base </div>
+	<div style="float:left;" id="baseoutput"></div>
+</div>
+<hr style="clear:both;">
+<h2>"Decrypt"</h2>
+<label for="encryptedinput" style="display: inline-block; width:200px;">Encrypted Input </label>
+<input id="encryptedinput" type="text">
+<br>
+<label for="baseinput" style="display: inline-block; width:200px;">Base </label>
+<input id="baseinput" type="text">
+<div>
+	<div style="float:left; width:200px;">Plaintext Output </div> 
+	<div style="float:left;" id="plaintextoutput"></div>
+</div>
+<script>
+var plaintextinput = document.getElementById("plaintextinput");
+var encryptedinput = document.getElementById("encryptedinput");
+var baseinput = document.getElementById("baseinput");
+var map = {
+	"0": 1,
+	"1": 2,
+	"2": 3,
+	"3": 4,
+	"4": 5,
+	"5": 6,
+	"6": 7,
+	"7": 8,
+	"8": 9,
+	"9": 10,
+	"A": 11,
+	"B": 12,
+	"C": 13,
+	"D": 14,
+	"E": 15,
+	"F": 16,
+	"G": 17,
+	"H": 18,
+	"I": 19,
+	"J": 20,
+	"K": 21,
+	"L": 22,
+	"M": 23,
+	"N": 24,
+	"O": 25,
+	"P": 26,
+	"Q": 27,
+	"R": 28,
+	"S": 29,
+	"T": 30,
+	"U": 31,
+	"V": 32,
+	"W": 33,
+	"X": 34,
+	"W": 35,
+	"Z": 36
+}
+plaintextinput.addEventListener("input", function(){
+	var text = document.getElementById("plaintextinput").value;
+	var base = 1;
+	for (var i=0; i < text.length; i++) { 
+		var letterbase = map[text.charAt(i).toUpperCase()];
+		if (base < letterbase){
+			base = letterbase;
+		}
+	}
+	document.getElementById("encryptedoutput").textContent = parseInt(text, base);
+	document.getElementById("baseoutput").textContent = base;
+});
+var decrypt = function(){
+    var text = document.getElementById("encryptedinput").value;
+	var base = document.getElementById("baseinput").value;
+	
+	document.getElementById("plaintextoutput").textContent = parseInt(text, 10).toString(base).toUpperCase();
+}
+encryptedinput.addEventListener("input", decrypt);
+baseinput.addEventListener("input", decrypt);
+</script>
+</body>
+</html>
