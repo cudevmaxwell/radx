@@ -13,7 +13,7 @@ To 'decrypt', provide the original base and the base 10 number.</pre>
 <pre>For example, 'radx' is 1073243 in base 34.</pre>
 <h2>"Encrypt"</h2>
 <label for="plaintextinput" style="display: inline-block; width:200px;">Input (no spaces)</label>
-<input id="plaintextinput" type="textbox" style="text-transform: uppercase;">
+<textarea id="plaintextinput" style="text-transform: uppercase;">
 <button id="encrypt-button" name="encrypt-button">Encrypt</button>
 <div>
 	<div style="float:left; width:200px;">Encrypted Output </div> 
@@ -22,7 +22,7 @@ To 'decrypt', provide the original base and the base 10 number.</pre>
 <hr style="clear:both;">
 <h2>"Decrypt"</h2>
 <label for="encryptedinput" style="display: inline-block; width:200px;">Encrypted Input </label>
-<input id="encryptedinput" type="textbox" style="text-transform: uppercase;">
+<textarea id="encryptedinput" style="text-transform: uppercase;">
 <button id="decrypt-button" name="decrypt-button">Decrypt</button>
 <div>
 	<div style="float:left; width:200px;">Plaintext Output </div> 
@@ -89,7 +89,7 @@ docment.getElementById("encrypt-button").addEventListener("click", function(){
 	var inputSplit = text.split(" ");
 	for (var i=0; i < inputSplit; i++) {
 		document.getElementById("encryptedoutput").textContent += encrypt(inputSplit[i]);
-		if i < inputSplit.length {
+		if (i < inputSplit.length) {
 			document.getElementById("encryptedoutput").textContent += " ";	
 		}
 	}
@@ -100,7 +100,7 @@ docment.getElementById("decrupt-button").addEventListener("click", function(){
 	var inputSplit = text.split(" ");
 	for (var i=0; i < inputSplit; i++) {
 		document.getElementById("plaintextoutput").textContent += decrypt(inputSplit[i]);
-		if i < inputSplit.length {
+		if (i < inputSplit.length) {
 			document.getElementById("plaintextoutput").textContent += " ";	
 		}
 	}
