@@ -12,100 +12,104 @@ Convert it to base 10.
 To 'decrypt', provide the original base and the base 10 number.</pre>
 <pre>For example, 'radx' is 1073243 in base 34.</pre>
 <h2>"Encrypt"</h2>
-<label for="plaintextinput" style="display: inline-block; width:200px;">Input (no spaces)</label>
-<textarea id="plaintextinput" style="text-transform: uppercase;">
-<button id="encrypt-button" name="encrypt-button">Encrypt</button>
-<div>
-	<div style="float:left; width:200px;">Encrypted Output </div> 
-	<pre style="float:left;" id="encryptedoutput"></pre>
+<label for="plaintextinput">Input</label>
+<br>
+<textarea id="plaintextinput" style="text-transform: uppercase; width: 300px;"></textarea>
+<br>
+<button id="encrypt-button" name="encrypt-button">"Encrypt"</button>
+<div style="margin-top: 1rem;">
+	<div>Encrypted Output</div> 
+	<pre id="encryptedoutput"></pre>
 </div>
-<hr style="clear:both;">
+
+<hr>
+
 <h2>"Decrypt"</h2>
-<label for="encryptedinput" style="display: inline-block; width:200px;">Encrypted Input </label>
-<textarea id="encryptedinput" style="text-transform: uppercase;">
-<button id="decrypt-button" name="decrypt-button">Decrypt</button>
-<div>
-	<div style="float:left; width:200px;">Plaintext Output </div> 
-	<pre style="float:left;" id="plaintextoutput"></div>
+<label for="encryptedinput">Encrypted Input</label>
+<br>
+<textarea id="encryptedinput" style="text-transform: uppercase; width: 300px;"></textarea>
+<br>
+<button id="decrypt-button" name="decrypt-button">"Decrypt"</button>
+<div style="margin-top: 1rem">
+	<div>Plaintext Output</div> 
+	<pre id="plaintextoutput"></pre>
 </div>
 <script>
-
 function encrypt(input){
 	var map = {
-	"0": 1,
-	"1": 2,
-	"2": 3,
-	"3": 4,
-	"4": 5,
-	"5": 6,
-	"6": 7,
-	"7": 8,
-	"8": 9,
-	"9": 10,
-	"A": 11,
-	"B": 12,
-	"C": 13,
-	"D": 14,
-	"E": 15,
-	"F": 16,
-	"G": 17,
-	"H": 18,
-	"I": 19,
-	"J": 20,
-	"K": 21,
-	"L": 22,
-	"M": 23,
-	"N": 24,
-	"O": 25,
-	"P": 26,
-	"Q": 27,
-	"R": 28,
-	"S": 29,
-	"T": 30,
-	"U": 31,
-	"V": 32,
-	"W": 33,
-	"X": 34,
-	"Y": 35,
-	"Z": 36
-        }
+		"0": 1,
+		"1": 2,
+		"2": 3,
+		"3": 4,
+		"4": 5,
+		"5": 6,
+		"6": 7,
+		"7": 8,
+		"8": 9,
+		"9": 10,
+		"A": 11,
+		"B": 12,
+		"C": 13,
+		"D": 14,
+		"E": 15,
+		"F": 16,
+		"G": 17,
+		"H": 18,
+		"I": 19,
+		"J": 20,
+		"K": 21,
+		"L": 22,
+		"M": 23,
+		"N": 24,
+		"O": 25,
+		"P": 26,
+		"Q": 27,
+		"R": 28,
+		"S": 29,
+		"T": 30,
+		"U": 31,
+		"V": 32,
+		"W": 33,
+		"X": 34,
+		"Y": 35,
+		"Z": 36
+	}
 	var base = 1;
-	for (var i=0; i < text.length; i++) { 
-		var letterbase = map[text.charAt(i).toUpperCase()];
+	for (var i=0; i < input.length; i++) { 
+		var letterbase = map[input.charAt(i).toUpperCase()];
 		if (base < letterbase){
 			base = letterbase;
 		}
 	}
-	return parseInt(text, base).toString() + "--" + base.toString();
+	return parseInt(input, base).toString() + "--" + base.toString();
 }
 	
 function decrypt(input){
 	var inputSplit = input.split("--");
-	return parseInt(inputSplit[0], 10).toString(inputSplit[0]).toUpperCase();	
+	console.log(inputSplit);
+	return parseInt(inputSplit[0], 10).toString(inputSplit[1]).toUpperCase();	
 }
 
-docment.getElementById("encrypt-button").addEventListener("click", function(){
-	var text = document.getElementById("plaintextinput").value;
-	var inputSplit = text.split(" ");
-	for (var i=0; i < inputSplit; i++) {
-		document.getElementById("encryptedoutput").textContent += encrypt(inputSplit[i]);
-		if (i < inputSplit.length) {
-			document.getElementById("encryptedoutput").textContent += " ";	
-		}
+function buttonEventListener(input, output, functionToRun){
+	return function(){
+		var inputElement = document.getElementById(input);
+		var outputElement = document.getElementById(output);
+		outputElement.textContent = "";
+		var text = inputElement.value;
+		var inputSplit = text.trim().split(" ");
+		for (var i=0; i < inputSplit.length; i++) {
+			if (inputSplit[i] !== ""){
+				outputElement.textContent += functionToRun(inputSplit[i]);
+				if (i < inputSplit.length - 1 ) {
+					outputElement.textContent += " ";	
+				}
+			}				
+		}	
 	}
-});
-	
-docment.getElementById("decrupt-button").addEventListener("click", function(){
-	var text = document.getElementById("encryptedinput").value;
-	var inputSplit = text.split(" ");
-	for (var i=0; i < inputSplit; i++) {
-		document.getElementById("plaintextoutput").textContent += decrypt(inputSplit[i]);
-		if (i < inputSplit.length) {
-			document.getElementById("plaintextoutput").textContent += " ";	
-		}
-	}
-});
+}
 
+document.getElementById("encrypt-button").addEventListener("click", buttonEventListener("plaintextinput", "encryptedoutput", encrypt));
+document.getElementById("decrypt-button").addEventListener("click", buttonEventListener("encryptedinput", "plaintextoutput", decrypt));
 </script>
 </body>
 </html>
