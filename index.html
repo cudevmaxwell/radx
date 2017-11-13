@@ -1,5 +1,6 @@
 <html>
 <head>
+<script src="bigint.js"></script>
 </head>
 <body>
 <h1>Rad-X!</h1>
@@ -81,12 +82,12 @@ function encrypt(input){
 			base = letterbase;
 		}
 	}
-	return parseInt(input, base).toString() + "--" + base.toString();
+	return bigInt(input, base).toString() + "--" + base.toString();
 }
 	
 function decrypt(input){
 	var inputSplit = input.split("--");
-	return parseInt(inputSplit[0], 10).toString(inputSplit[1]).toUpperCase();	
+	return bigInt(inputSplit[0], 10).toString(inputSplit[1]).toUpperCase();	
 }
 
 function buttonEventListener(input, output, functionToRun){
