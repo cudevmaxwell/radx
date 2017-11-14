@@ -82,11 +82,11 @@ function encrypt(input){
 			base = letterbase;
 		}
 	}
-	return bigInt(input, base).toString() + "--" + base.toString();
+	return bigInt(input, base).toString() + "_" + base.toString();
 }
 	
 function decrypt(input){
-	var inputSplit = input.split("--");
+	var inputSplit = input.split("_");
 	return bigInt(inputSplit[0], 10).toString(inputSplit[1]).toUpperCase();	
 }
 
